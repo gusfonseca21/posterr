@@ -1,0 +1,22 @@
+.container {
+  height: 120vh;
+  background-color: black;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.main {
+  grid-column: 2/3;
+  border-left: 1px solid #2f3336;
+  border-right: 1px solid #2f3336;
+  padding: 1rem 2rem;
+}
+
+.homepage-title {
+  font-size: 1.5rem;
+  background-color: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(12px);
+  margin-bottom: 2rem;
+  height: 100%;
+}
+
