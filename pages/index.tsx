@@ -6,6 +6,7 @@ import Head from "next/head";
 
 import classes from "../styles/Home.module.css";
 import UserHomepage from "../layout/UserHomepage";
+import Posts from "../layout/Posts";
 
 const Home: NextPage = () => {
   return (
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
         <div className={classes["main-header"]}>
           <h3 className={classes["homepage-title"]}>Página Inicial</h3>
           <UserHomepage />
+          <Posts />
         </div>
       </main>
     </div>

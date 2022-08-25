@@ -1,16 +1,18 @@
 import Image from "next/image";
 
+import { useSelector } from "react-redux";
+import { userProfileValue } from "../slices/userProfileSlice";
+
 import classes from "./UserHomepage.module.css";
 
 const UserHomepage = () => {
-  const user = {
-    picture: "/../public/images/faces/8.jpg",
-  };
+  const userProfile = useSelector(userProfileValue);
+
   return (
     <div className={classes["user-homepage"]}>
       <div className={classes["profile-picture-div"]}>
         <Image
-          src={user.picture}
+          src={userProfile.profilePicture}
           width="80px"
           height="80px"
           alt="Foto de perfil"
@@ -20,7 +22,6 @@ const UserHomepage = () => {
       <div className={classes["input-button-div"]}>
         <input
           type="text"
-          size={1}
           className={classes["profile-input"]}
           placeholder="Poste alguma coisa!"
         />

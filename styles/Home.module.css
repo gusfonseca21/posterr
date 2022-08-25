@@ -1,5 +1,5 @@
 .container {
-  height: 120vh;
+  height: 100vh;
   background-color: black;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -9,7 +9,6 @@
   grid-column: 2/3;
   border-left: 1px solid #2f3336;
   border-right: 1px solid #2f3336;
-  padding: 1rem 2rem;
 }
 
 .homepage-title {
@@ -18,5 +17,6 @@
   backdrop-filter: blur(12px);
   margin-bottom: 2rem;
   height: 100%;
+  padding: 1rem 2rem;
+  color: rgb(231, 233, 234);
 }
-
