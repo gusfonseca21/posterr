@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { useSelector } from "react-redux";
-import { userProfileValue } from "../slices/userProfileSlice";
+import { userProfileValue } from "../../slices/userProfileSlice";
 
 import classes from "./UserHomepage.module.css";
 

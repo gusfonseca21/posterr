@@ -7,6 +7,10 @@
   color: rgb(231, 233, 234);
 }
 
+.posts:last-child {
+  border: none;
+}
+
 .image-div {
   min-height: 80px;
   min-width: 80px;
