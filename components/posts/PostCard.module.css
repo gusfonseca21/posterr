@@ -5,6 +5,21 @@
   align-items: flex-start;
   padding: 1.5rem 2rem;
   color: rgb(231, 233, 234);
+  position: relative;
+}
+
+.repost {
+  padding: 3rem 2rem 1.5rem 2rem;
+}
+
+.reposted-title {
+  position: absolute;
+  color: white;
+  top: 5%;
+}
+.post-quoted {
+  border: 1px solid #2f3336;
+  border-radius: 20px;
 }
 
 .posts:last-child {

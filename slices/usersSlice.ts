@@ -50,6 +50,16 @@ const initialState: UsersState = {
           content:
             "A human being has a natural desire to have more of a good thing than he needs.",
         },
+        {
+          postId: 979,
+          type: "quote",
+          originalPoster: 16,
+          originalPostId: 166,
+          comment: "Muito legal!",
+          postedBy: 8,
+          content:
+            "A human being has a natural desire to have more of a good thing than he needs.",
+        },
       ],
     },
     {
