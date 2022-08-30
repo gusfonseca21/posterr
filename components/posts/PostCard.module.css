@@ -19,7 +19,7 @@
 }
 .post-quoted {
   border: 1px solid #2f3336;
-  border-radius: 20px;
+  border-radius: 10px;
 }
 
 .posts:last-child {

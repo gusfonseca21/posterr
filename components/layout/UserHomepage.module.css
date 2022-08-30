@@ -1,10 +1,11 @@
 .user-homepage {
   display: flex;
   align-items: flex-start;
-  height: 10rem;
+  height: 12rem;
   border-bottom: 1px solid #2f3336;
   width: 100%;
   padding: 1rem 2rem;
+  position: relative;
 }
 
 .profile-picture-div {
@@ -56,5 +57,26 @@
 .post-button:hover,
 .post-button:active {
   background-color: rgb(26, 140, 216);
+  cursor: pointer;
+}
+
+/* Botão de posts all/following:*/
+
+.posts-button {
+  position: absolute;
+  bottom: 10%;
+  left: 3%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: rgb(231, 233, 234);
+}
+
+.button-text {
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.6rem;
+  border: 1px solid rgb(231, 233, 234);
+  border-radius: 15px;
   cursor: pointer;
 }

@@ -8,6 +8,7 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { MdFormatQuote } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { usersValue } from "../../slices/usersSlice";
+import { useRouter } from "next/router";
 
 const PostCard: React.FC<{
   firstLevelPoster: number;
@@ -43,6 +44,12 @@ const PostCard: React.FC<{
 
   const users = useSelector(usersValue);
 
+  const router = useRouter();
+
+  const isOriginal = props.postType === "original";
+  const isRepost = props.postType === "repost";
+  const isQuote = props.postType === "quote";
+
   const firstLevelPoster = users.filter(
     (user) => user.id === props.firstLevelPoster
   );
@@ -50,13 +57,6 @@ const PostCard: React.FC<{
   const secondLevelPoster = users.filter(
     (user) => user.id === props.secondLevelPoster
   );
-
-  const isOriginal = props.postType === "original";
-  const isRepost = props.postType === "repost";
-  const isQuote = props.postType === "quote";
-
-  console.log(secondLevelPoster[0]);
-  console.log(secondLevelPoster[0]?.photo);
 
   return (
     <div
