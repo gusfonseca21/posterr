@@ -20,9 +20,19 @@ const Posts = () => {
 
   const showPosts = router.pathname;
 
+  const genrateRandomNumber = (min: number, max: number) => {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  };
+
+  console.log(showPosts);
+  console.log(showPosts.includes("user"));
+
   return (
     <>
-      {showPosts === "/all" &&
+      {showPosts !== "/following" &&
+        !showPosts.includes("/user") &&
         users.map((user) => {
           return user.posts.map((post) => {
             return (
@@ -32,7 +42,7 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
-                key={user.id}
+                key={genrateRandomNumber(1, 90)}
               />
             );
           });
@@ -47,10 +57,28 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
-                key={user.id}
+                key={genrateRandomNumber(1, 90)}
               />
             );
           });
+        })}
+      {showPosts !== "/following" &&
+        showPosts.includes("/user") &&
+        users.map((user) => {
+          if (user.id === +router.query.id) {
+            return user.posts.map((post) => {
+              return (
+                <PostCard
+                  firstLevelPoster={post.postedBy}
+                  secondLevelPoster={post.originalPoster}
+                  postType={post.type}
+                  comment={post.comment}
+                  content={post.content}
+                  key={genrateRandomNumber(1, 90)}
+                />
+              );
+            });
+          }
         })}
     </>
   );

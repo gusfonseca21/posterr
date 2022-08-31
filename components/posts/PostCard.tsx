@@ -8,7 +8,8 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { MdFormatQuote } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { usersValue } from "../../slices/usersSlice";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
+import Link from "next/link";
 
 const PostCard: React.FC<{
   firstLevelPoster: number;
@@ -58,13 +59,20 @@ const PostCard: React.FC<{
     (user) => user.id === props.secondLevelPoster
   );
 
+  const clickUserNameHandler = (id: number) => {
+    router.push(`/user/${id}`);
+  };
+
   return (
     <div
       className={`${classes.posts} ${isRepost ? classes.repost : ""}`}
       key={firstLevelPoster[0].id}
     >
       {isRepost && (
-        <span className={classes["reposted-title"]}>
+        <span
+          className={classes["reposted-title"]}
+          onClick={() => clickUserNameHandler(firstLevelPoster[0].id)}
+        >
           {firstLevelPoster[0].name + " repostou"}
         </span>
       )}
@@ -83,8 +91,11 @@ const PostCard: React.FC<{
       </div>
       {isQuote && (
         <div className={classes["post-body"]}>
-          <span className={classes["profile-name"]}>
-            {secondLevelPoster[0]?.name}
+          <span
+            className={classes["profile-name"]}
+            onClick={() => clickUserNameHandler(firstLevelPoster[0].id)}
+          >
+            {firstLevelPoster[0].name}
           </span>
           <span className={classes["post-content"]}>{props.comment}</span>
           <div className={classes["post-quoted"]}>
@@ -99,7 +110,10 @@ const PostCard: React.FC<{
                 />
               </div>
               <div className={classes["post-body"]}>
-                <span className={classes["profile-name"]}>
+                <span
+                  className={classes["profile-name"]}
+                  onClick={() => clickUserNameHandler(secondLevelPoster[0].id)}
+                >
                   {secondLevelPoster[0]?.name}
                 </span>
                 <span className={classes["post-content"]}>{props.content}</span>
@@ -110,7 +124,16 @@ const PostCard: React.FC<{
       )}
       {!isQuote && (
         <div className={classes["post-body"]}>
-          <span className={classes["profile-name"]}>
+          <span
+            className={classes["profile-name"]}
+            onClick={() =>
+              `${
+                !isRepost
+                  ? clickUserNameHandler(firstLevelPoster[0].id)
+                  : clickUserNameHandler(secondLevelPoster[0].id)
+              }`
+            }
+          >
             {isRepost ? secondLevelPoster[0]?.name : firstLevelPoster[0].name}
           </span>
           <span className={classes["post-content"]}>

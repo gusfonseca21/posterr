@@ -1,0 +1,50 @@
+.overlay {
+  opacity: 0.2;
+  position: relative;
+}
+
+.modal {
+  position: absolute;
+  width: 40rem;
+  background-color: black;
+  z-index: 1;
+  left: 50%;
+  top: 50%;
+  padding-top: 3rem;
+  transform: translate(-50%, -50%);
+  border: 1px solid #5b6165;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.modal-posts {
+  border-top: 1px solid #5b6165;
+  max-height: 30rem;
+  overflow-y: scroll;
+}
+
+.profile-data-div {
+  display: flex;
+  flex-direction: row;
+  gap: 1.3rem;
+}
+
+.user-photo {
+  border-radius: 50%;
+}
+
+.user-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.date-joined,
+.followers-number,
+.following-number,
+.posts-number {
+  font-size: 1.2rem;
+}

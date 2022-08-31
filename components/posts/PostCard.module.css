@@ -17,6 +17,12 @@
   color: white;
   top: 5%;
 }
+
+.reposted-title:hover,
+.reposted-title:active {
+  cursor: pointer;
+}
+
 .post-quoted {
   border: 1px solid #2f3336;
   border-radius: 10px;
@@ -44,6 +50,11 @@
 .profile-name {
   font-size: 1.3rem;
   font-weight: 800;
+}
+
+.profile-name:hover,
+.profile-name:active {
+  cursor: pointer;
 }
 
 .post-content {

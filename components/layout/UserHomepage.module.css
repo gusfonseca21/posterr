@@ -80,3 +80,8 @@
   border-radius: 15px;
   cursor: pointer;
 }
+
+.active {
+  color: #000;
+  background-color: rgb(231, 233, 234);
+}

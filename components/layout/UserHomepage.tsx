@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { useState } from "react";
 import { useRouter } from "next/router";
 
 import { useSelector } from "react-redux";
@@ -10,6 +9,10 @@ import Link from "next/link";
 
 const UserHomepage = () => {
   const user = useSelector(usersValue);
+
+  const router = useRouter();
+
+  const routerPath = router.pathname;
 
   return (
     <div className={classes["user-homepage"]}>
@@ -30,14 +33,30 @@ const UserHomepage = () => {
         />
         <button className={classes["post-button"]}>Postar</button>
       </div>
-      <div className={classes["posts-button"]}>
-        <Link href={"/all"}>
-          <span className={classes["button-text"]}>Todos </span>
-        </Link>
-        <Link href={"/following"}>
-          <span className={classes["button-text"]}> Seguindo</span>
-        </Link>
-      </div>
+      {routerPath === "/all" ||
+        (routerPath === "/following" && (
+          <div className={classes["posts-button"]}>
+            <Link href={"/all"}>
+              <span
+                className={`${classes["button-text"]} ${
+                  router.pathname === "/all" && classes.active
+                }`}
+              >
+                Todos{" "}
+              </span>
+            </Link>
+            <Link href={"/following"}>
+              <span
+                className={`${classes["button-text"]} ${
+                  router.pathname === "/following" && classes.active
+                }`}
+              >
+                {" "}
+                Seguindo
+              </span>
+            </Link>
+          </div>
+        ))}
     </div>
   );
 };
