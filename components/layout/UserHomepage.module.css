@@ -1,64 +1,10 @@
 .user-homepage {
   display: flex;
   align-items: flex-start;
-  height: 12rem;
-  border-bottom: 1px solid #2f3336;
   width: 100%;
-  padding: 1rem 2rem;
   position: relative;
 }
 
-.profile-picture-div {
-  min-width: 80px;
-  min-height: 80px;
-}
-
-.profile-picture {
-  border-radius: 50px;
-}
-
-.input-button-div {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 1rem;
-}
-
-.profile-input {
-  height: 50%;
-  width: 100%;
-  font-size: 1.2rem;
-  padding: 0 2rem 0 2rem;
-  background-color: #000;
-  border: none;
-  border-bottom: 1px solid #2f3336;
-}
-
-.profile-input:focus {
-  outline: none !important;
-}
-
-.post-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 5rem;
-  font-weight: 600;
-  font-size: 1rem;
-  background-color: rgb(29, 155, 240);
-  border: none;
-  padding: 1rem;
-  border-radius: 50px;
-  color: rgb(231, 233, 234);
-}
-
-.post-button:hover,
-.post-button:active {
-  background-color: rgb(26, 140, 216);
-  cursor: pointer;
-}
 
 /* Botão de posts all/following:*/
 

@@ -1,7 +1,7 @@
-import Home from "..";
+import Home from "../[index]";
 
-const All = () => {
+const AllPosts = () => {
   return <Home />;
 };
 
-export default All;
+export default AllPosts;

@@ -3,6 +3,9 @@ import { usersValue } from "../../slices/usersSlice";
 import PostCard from "../posts/PostCard";
 
 import { useRouter } from "next/router";
+
+import { generateRandomNumber } from "../../Helpers";
+
 const Posts = () => {
   const users = useSelector(usersValue);
 
@@ -20,19 +23,9 @@ const Posts = () => {
 
   const showPosts = router.pathname;
 
-  const genrateRandomNumber = (min: number, max: number) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  };
-
-  console.log(showPosts);
-  console.log(showPosts.includes("user"));
-
   return (
     <>
       {showPosts !== "/following" &&
-        !showPosts.includes("/user") &&
         users.map((user) => {
           return user.posts.map((post) => {
             return (
@@ -42,7 +35,7 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
-                key={genrateRandomNumber(1, 90)}
+                key={generateRandomNumber(1, 1000)}
               />
             );
           });
@@ -57,28 +50,10 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
-                key={genrateRandomNumber(1, 90)}
+                key={generateRandomNumber(1, 1000)}
               />
             );
           });
-        })}
-      {showPosts !== "/following" &&
-        showPosts.includes("/user") &&
-        users.map((user) => {
-          if (user.id === +router.query.id) {
-            return user.posts.map((post) => {
-              return (
-                <PostCard
-                  firstLevelPoster={post.postedBy}
-                  secondLevelPoster={post.originalPoster}
-                  postType={post.type}
-                  comment={post.comment}
-                  content={post.content}
-                  key={genrateRandomNumber(1, 90)}
-                />
-              );
-            });
-          }
         })}
     </>
   );

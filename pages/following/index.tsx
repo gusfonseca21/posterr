@@ -1,8 +1,7 @@
-import Home from "..";
-import All from "../all";
+import Home from "../[index]";
 
-const Following = () => {
-  return <All />;
+const FollowingPosts = () => {
+  return <Home />;
 };
 
-export default Following;
+export default FollowingPosts;

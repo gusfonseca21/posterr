@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface UsersState {
@@ -19,6 +19,7 @@ export interface UsersState {
       content: string;
     }[];
   }[];
+  loggedUser: number;
 }
 
 const initialState: UsersState = {
@@ -140,15 +141,6 @@ const initialState: UsersState = {
           content:
             "Nulla orci arcu, sollicitudin sit amet felis vel, condimentum dignissim dolor. Praesent imperdiet urna vel eros tincidunt, blandit ornare massa porttitor.",
         },
-        {
-          postId: 709,
-          type: "repost",
-          originalPoster: 8,
-          originalPostId: 6,
-          comment: null,
-          postedBy: 16,
-          content: "Olá, esse é meu primeiro post no Posterr!",
-        },
       ],
     },
     {
@@ -172,14 +164,27 @@ const initialState: UsersState = {
       ],
     },
   ],
+  loggedUser: 8,
 };
 
 export const usersState = createSlice({
-  name: "counter",
+  name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    follow: (state, action: PayloadAction<number>) => {
+      state.users[0].following.push(action.payload);
+    },
+    unfollow: (state, action: PayloadAction<number>) => {
+      state.users[0].following = state.users[0].following.filter(
+        (users) => users !== action.payload
+      );
+    },
+  },
 });
 
+export const { follow, unfollow } = usersState.actions;
+
 export const usersValue = (state: RootState) => state.users.users;
+export const loggedUser = (state: RootState) => state.logged.loggedUser;
 
 export default usersState.reducer;

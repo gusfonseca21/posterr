@@ -8,8 +8,7 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { MdFormatQuote } from "react-icons/md";
 import { useSelector } from "react-redux";
 import { usersValue } from "../../slices/usersSlice";
-import { Router, useRouter } from "next/router";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 const PostCard: React.FC<{
   firstLevelPoster: number;
@@ -60,7 +59,7 @@ const PostCard: React.FC<{
   );
 
   const clickUserNameHandler = (id: number) => {
-    router.push(`/user/${id}`);
+    router.push(`/user/${id}`, undefined, { shallow: true });
   };
 
   return (
