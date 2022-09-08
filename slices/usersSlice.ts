@@ -22,6 +22,7 @@ export interface UsersState {
     }[];
   }[];
   loggedUser: number;
+  numberOfPostsPerDay: number;
 }
 
 const initialState: UsersState = {
@@ -167,6 +168,7 @@ const initialState: UsersState = {
     },
   ],
   loggedUser: 8,
+  numberOfPostsPerDay: 0,
 };
 
 export const usersState = createSlice({
@@ -192,12 +194,47 @@ export const usersState = createSlice({
         content: action.payload,
       });
     },
+    newRepost: (
+      state,
+      action: PayloadAction<{
+        originalPoster: number | null;
+        originalPostId: number;
+        content: string;
+      }>
+    ) => {
+      state.users[0].posts.unshift({
+        postId: generateRandomNumber(0, 1000),
+        type: "repost",
+        originalPoster: action.payload.originalPoster,
+        originalPostId: action.payload.originalPostId,
+        comment: null,
+        postedBy: 8,
+        content: action.payload.content,
+      });
+    },
+    updateNumberOfPostsIn24Hours: (state, action: PayloadAction<string>) => {
+      if (state.numberOfPostsPerDay < 5) {
+        state.numberOfPostsPerDay = state.numberOfPostsPerDay + 1;
+      }
+
+      if (action.payload === "reset") {
+        state.numberOfPostsPerDay = 0;
+      }
+    },
   },
 });
 
-export const { follow, unfollow, newOriginalPost } = usersState.actions;
+export const {
+  follow,
+  unfollow,
+  newOriginalPost,
+  newRepost,
+  updateNumberOfPostsIn24Hours,
+} = usersState.actions;
 
 export const usersValue = (state: RootState) => state.users.users;
 export const loggedUser = (state: RootState) => state.logged.loggedUser;
+export const numberOfPostsIn24Hours = (state: RootState) =>
+  state.postsIn24Hours.numberOfPostsPerDay;
 
 export default usersState.reducer;

@@ -20,6 +20,8 @@ const UserModal = () => {
     profileId = +router.query.id;
   }
 
+  const dispatch = useDispatch();
+  
   const users = useSelector(usersValue);
 
   const currentLoggedUser = useSelector(loggedUser);
@@ -59,8 +61,6 @@ const UserModal = () => {
   const joinedDate = new Intl.DateTimeFormat("pt-BR", dateOptions).format(
     profileData.dateJoined * 1000
   );
-
-  const dispatch = useDispatch();
 
   return (
     <div className={classes.modal}>

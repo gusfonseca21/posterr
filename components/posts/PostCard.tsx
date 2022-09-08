@@ -6,9 +6,19 @@ import classes from "./PostCard.module.css";
 
 import { AiOutlineRetweet } from "react-icons/ai";
 import { MdFormatQuote } from "react-icons/md";
-import { useSelector } from "react-redux";
-import { usersValue } from "../../slices/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  loggedUser,
+  numberOfPostsIn24Hours,
+  usersValue,
+} from "../../slices/usersSlice";
 import { useRouter } from "next/router";
+
+import {
+  newRepost,
+  updateNumberOfPostsIn24Hours,
+} from "../../slices/usersSlice";
+import { generateRandomNumber } from "../../Helpers";
 
 const PostCard: React.FC<{
   firstLevelPoster: number;
@@ -44,6 +54,12 @@ const PostCard: React.FC<{
 
   const users = useSelector(usersValue);
 
+  const numberOfPostsPerDay = useSelector(numberOfPostsIn24Hours);
+
+  const userLogged = useSelector(loggedUser);
+
+  const dispatch = useDispatch();
+
   const router = useRouter();
 
   const isOriginal = props.postType === "original";
@@ -60,6 +76,24 @@ const PostCard: React.FC<{
 
   const clickUserNameHandler = (id: number) => {
     router.push(`/user/${id}`, undefined, { shallow: true });
+  };
+
+  const newRepostClickHandler = () => {
+    dispatch(updateNumberOfPostsIn24Hours(""));
+    if (numberOfPostsPerDay >= 5) {
+      return;
+    }
+    if (numberOfPostsPerDay < 5) {
+      dispatch(
+        newRepost({
+          originalPoster: props.firstLevelPoster,
+          originalPostId: generateRandomNumber(0, 1000),
+          content: props.content,
+        })
+      );
+    } else {
+      return;
+    }
   };
 
   return (
@@ -137,41 +171,45 @@ const PostCard: React.FC<{
           </span>
           <span className={classes["post-content"]}>
             {props.content}
-            {props.postType === "original" && (
-              <div className={classes.icons}>
-                <div className={classes["repost-icon-div"]}>
-                  <AiOutlineRetweet
-                    className={classes["repost-icon"]}
-                    onMouseEnter={() =>
-                      mouseEnterRepostIconHandler(firstLevelPoster[0].id)
-                    }
-                    onMouseLeave={mouseLeaveRepostIconHandler}
-                  />
+            {props.postType === "original" &&
+              props.firstLevelPoster !== userLogged && (
+                <div className={classes.icons}>
+                  <div
+                    className={classes["repost-icon-div"]}
+                    onClick={newRepostClickHandler}
+                  >
+                    <AiOutlineRetweet
+                      className={classes["repost-icon"]}
+                      onMouseEnter={() =>
+                        mouseEnterRepostIconHandler(firstLevelPoster[0].id)
+                      }
+                      onMouseLeave={mouseLeaveRepostIconHandler}
+                    />
 
-                  {repostIconState.status &&
-                    firstLevelPoster[0].id === repostIconState.id && (
-                      <div className={classes["repost-icon-hover-div"]}>
-                        Repostar
-                      </div>
-                    )}
+                    {repostIconState.status &&
+                      firstLevelPoster[0].id === repostIconState.id && (
+                        <div className={classes["repost-icon-hover-div"]}>
+                          Repostar
+                        </div>
+                      )}
+                  </div>
+                  <div className={classes["quote-icon-div"]}>
+                    <MdFormatQuote
+                      className={classes["quote-icon"]}
+                      onMouseEnter={() =>
+                        mouseEnterQuoteIconHandler(firstLevelPoster[0].id)
+                      }
+                      onMouseLeave={mouseLeaveQuoteIconHandler}
+                    />
+                    {quoteIconState.status &&
+                      firstLevelPoster[0].id === quoteIconState.id && (
+                        <div className={classes["quote-icon-hover-div"]}>
+                          Citar
+                        </div>
+                      )}
+                  </div>
                 </div>
-                <div className={classes["quote-icon-div"]}>
-                  <MdFormatQuote
-                    className={classes["quote-icon"]}
-                    onMouseEnter={() =>
-                      mouseEnterQuoteIconHandler(firstLevelPoster[0].id)
-                    }
-                    onMouseLeave={mouseLeaveQuoteIconHandler}
-                  />
-                  {quoteIconState.status &&
-                    firstLevelPoster[0].id === quoteIconState.id && (
-                      <div className={classes["quote-icon-hover-div"]}>
-                        Citar
-                      </div>
-                    )}
-                </div>
-              </div>
-            )}
+              )}
           </span>
         </div>
       )}

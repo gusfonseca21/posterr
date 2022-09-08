@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import usersReducer, { loggedUser } from "./slices/usersSlice";
+import usersReducer from "./slices/usersSlice";
 
 export const store = configureStore({
   reducer: {
     users: usersReducer,
     logged: usersReducer,
+    postsIn24Hours: usersReducer,
   },
 });
 

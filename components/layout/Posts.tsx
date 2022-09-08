@@ -1,13 +1,19 @@
-import { useSelector } from "react-redux";
-import { usersValue } from "../../slices/usersSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { numberOfPostsIn24Hours, usersValue } from "../../slices/usersSlice";
 import PostCard from "../posts/PostCard";
 
 import { useRouter } from "next/router";
+
+import { updateNumberOfPostsIn24Hours } from "../../slices/usersSlice";
 
 import { generateRandomNumber } from "../../Helpers";
 
 const Posts = () => {
   const users = useSelector(usersValue);
+
+  const dispatch = useDispatch();
+
+  const numberOfPostsPerDay = useSelector(numberOfPostsIn24Hours);
 
   const router = useRouter();
 
@@ -22,6 +28,20 @@ const Posts = () => {
   });
 
   const showPosts = router.pathname;
+
+  let initialTimerMinutes: number = 15; // 24 horas em minutos
+
+  if (numberOfPostsPerDay === 1) {
+    console.log(numberOfPostsPerDay);
+    const timerInterval = setInterval(() => {
+      initialTimerMinutes--;
+      console.log(initialTimerMinutes);
+      if (initialTimerMinutes === 0) {
+        clearInterval(timerInterval);
+        dispatch(updateNumberOfPostsIn24Hours("reset"));
+      }
+    }, 1000); // 60000 = um minuto em milisegundos
+  }
 
   return (
     <>
