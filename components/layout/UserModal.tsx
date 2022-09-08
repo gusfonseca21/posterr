@@ -62,8 +62,6 @@ const UserModal = () => {
 
   const dispatch = useDispatch();
 
-  console.log(users[0].following);
-
   return (
     <div className={classes.modal}>
       <Image

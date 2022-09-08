@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
+import { generateRandomNumber } from "../Helpers";
+
 export interface UsersState {
   users: {
     id: number;
@@ -26,7 +28,7 @@ const initialState: UsersState = {
   users: [
     {
       id: 8,
-      name: "Renata Brito",
+      name: "renatabritto",
       photo: "/../public/images/faces/8.jpg",
       dateJoined: 1645412400,
       followers: [16, 22, 36, 44, 63],
@@ -65,7 +67,7 @@ const initialState: UsersState = {
     },
     {
       id: 16,
-      name: "Mark Twain",
+      name: "TwainMark",
       photo: "/../public/images/faces/16.jpg",
       dateJoined: 1642820400,
       followers: [8, 22, 36, 44],
@@ -85,7 +87,7 @@ const initialState: UsersState = {
     },
     {
       id: 22,
-      name: "Jesus Lopez",
+      name: "Lopez",
       photo: "/../public/images/faces/22.jpg",
       dateJoined: 1644721200,
       followers: [8, 16, 36],
@@ -105,7 +107,7 @@ const initialState: UsersState = {
     },
     {
       id: 36,
-      name: "Adriano Ferreira",
+      name: "Adriano11",
       photo: "/../public/images/faces/36.jpg",
       dateJoined: 1643770800,
       followers: [16, 22],
@@ -125,7 +127,7 @@ const initialState: UsersState = {
     },
     {
       id: 44,
-      name: "Fabiana Mendez",
+      name: "afabianaMendez",
       photo: "/../public/images/faces/44.jpg",
       dateJoined: 1647140400,
       followers: [8, 16, 22],
@@ -145,7 +147,7 @@ const initialState: UsersState = {
     },
     {
       id: 63,
-      name: "Diana Mecenas",
+      name: "00diana",
       photo: "/../public/images/faces/63.jpg",
       dateJoined: 1653966000,
       followers: [16, 22],
@@ -179,10 +181,21 @@ export const usersState = createSlice({
         (users) => users !== action.payload
       );
     },
+    newOriginalPost: (state, action: PayloadAction<string>) => {
+      state.users[0].posts.unshift({
+        postId: generateRandomNumber(0, 1000),
+        type: "original",
+        originalPoster: null,
+        originalPostId: null,
+        comment: null,
+        postedBy: 8,
+        content: action.payload,
+      });
+    },
   },
 });
 
-export const { follow, unfollow } = usersState.actions;
+export const { follow, unfollow, newOriginalPost } = usersState.actions;
 
 export const usersValue = (state: RootState) => state.users.users;
 export const loggedUser = (state: RootState) => state.logged.loggedUser;

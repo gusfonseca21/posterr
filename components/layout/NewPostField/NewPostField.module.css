@@ -16,14 +16,12 @@
 .profile-picture {
   border-radius: 50px;
 }
-
 .input-button-div {
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 1rem;
 }
 
 .profile-input {
@@ -86,4 +84,21 @@
 .post-button:active {
   background-color: rgb(26, 140, 216);
   cursor: pointer;
+}
+
+.post-button-blocked {
+  background-color: #636e72;
+  cursor: not-allowed;
+}
+
+.post-button-blocked:hover,
+.post-button-blocked:active {
+  background-color: #636e72;
+  cursor: not-allowed;
+}
+
+.character-count {
+  position: absolute;
+  bottom: 30%;
+  right: 40%;
 }
