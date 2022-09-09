@@ -2,7 +2,10 @@ import Image from "next/image";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import {
-  numberOfPostsIn24Hours,
+  changeQuoteModalStatus,
+  changeQuoteModalStatusValue,
+  newQuote,
+  numberOfPostsIn24HoursValue,
   updateNumberOfPostsIn24Hours,
   usersValue,
 } from "../../../slices/usersSlice";
@@ -16,9 +19,11 @@ const NewPostField = () => {
   const [characterCount, setCharacterCount] = useState(0);
   const [newPostContent, setNewPostContent] = useState("");
 
-  const user = useSelector(usersValue);
+  const users = useSelector(usersValue);
 
-  const numberOfPostsPerDay = useSelector(numberOfPostsIn24Hours);
+  const changeQuoteModalValue = useSelector(changeQuoteModalStatusValue);
+
+  const numberOfPostsPerDay = useSelector(numberOfPostsIn24HoursValue);
 
   const dispatch = useDispatch();
 
@@ -28,16 +33,37 @@ const NewPostField = () => {
   };
 
   const postClickHandler = () => {
-    dispatch(updateNumberOfPostsIn24Hours(""));
     if (newPostContent.trim().length > 0) {
+      dispatch(updateNumberOfPostsIn24Hours(""));
       if (numberOfPostsPerDay >= 5) {
         return;
       }
       if (numberOfPostsPerDay < 5) {
-        dispatch(newOriginalPost(newPostContent));
-        setNewPostContent("");
-        setCharacterCount(0);
-        dispatch(updateNumberOfPostsIn24Hours);
+        if (!changeQuoteModalValue.status) {
+          dispatch(newOriginalPost(newPostContent));
+          setNewPostContent("");
+          setCharacterCount(0);
+          dispatch(updateNumberOfPostsIn24Hours);
+        }
+        if (changeQuoteModalValue.status) {
+          const originalPostId = changeQuoteModalValue.id;
+
+          const usersPosts = users.flatMap((user) => user.posts);
+
+          const [originalPost] = usersPosts.filter(
+            (post) => post.postId === originalPostId
+          );
+          dispatch(
+            newQuote({
+              originalPoster: originalPost.postedBy,
+              originalPostId: originalPostId,
+              comment: newPostContent,
+              content: originalPost.content,
+            })
+          );
+
+          dispatch(changeQuoteModalStatus({ id: null, setState: false }));
+        }
       }
     } else {
       return;
@@ -48,7 +74,7 @@ const NewPostField = () => {
     <div className={classes["new-post"]}>
       <div className={classes["profile-picture-div"]}>
         <Image
-          src={user[0].photo}
+          src={users[0].photo}
           width="80px"
           height="80px"
           alt="Foto de perfil"

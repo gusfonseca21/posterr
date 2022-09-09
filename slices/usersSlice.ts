@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 import { generateRandomNumber } from "../Helpers";
+import PostCard from "../components/posts/PostCard";
 
 export interface UsersState {
   users: {
@@ -23,6 +24,7 @@ export interface UsersState {
   }[];
   loggedUser: number;
   numberOfPostsPerDay: number;
+  quoteModalStatus: { status: boolean; id: number | null };
 }
 
 const initialState: UsersState = {
@@ -169,6 +171,7 @@ const initialState: UsersState = {
   ],
   loggedUser: 8,
   numberOfPostsPerDay: 0,
+  quoteModalStatus: { status: false, id: null },
 };
 
 export const usersState = createSlice({
@@ -221,6 +224,33 @@ export const usersState = createSlice({
         state.numberOfPostsPerDay = 0;
       }
     },
+    changeQuoteModalStatus: (
+      state,
+      action: PayloadAction<{ id: number | null; setState: boolean }>
+    ) => {
+      state.quoteModalStatus.status = action.payload.setState;
+      state.quoteModalStatus.id = action.payload.id;
+    },
+
+    newQuote: (
+      state,
+      action: PayloadAction<{
+        originalPoster: number;
+        originalPostId: number | null;
+        comment: string;
+        content: string;
+      }>
+    ) => {
+      state.users[0].posts.unshift({
+        postId: generateRandomNumber(0, 1000),
+        type: "quote",
+        originalPoster: action.payload.originalPoster,
+        originalPostId: action.payload.originalPostId,
+        comment: action.payload.comment,
+        postedBy: 8,
+        content: action.payload.content,
+      });
+    },
   },
 });
 
@@ -230,11 +260,15 @@ export const {
   newOriginalPost,
   newRepost,
   updateNumberOfPostsIn24Hours,
+  changeQuoteModalStatus,
+  newQuote,
 } = usersState.actions;
 
 export const usersValue = (state: RootState) => state.users.users;
 export const loggedUser = (state: RootState) => state.logged.loggedUser;
-export const numberOfPostsIn24Hours = (state: RootState) =>
+export const numberOfPostsIn24HoursValue = (state: RootState) =>
   state.postsIn24Hours.numberOfPostsPerDay;
+export const changeQuoteModalStatusValue = (state: RootState) =>
+  state.changeQuoteModalStatus.quoteModalStatus;
 
 export default usersState.reducer;

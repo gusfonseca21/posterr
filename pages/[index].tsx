@@ -8,20 +8,40 @@ import Posts from "../components/layout/Posts";
 import UserModal from "../components/layout/UserModal";
 
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  changeQuoteModalStatus,
+  changeQuoteModalStatusValue,
+} from "../slices/usersSlice";
+import QuoteModal from "../components/layout/QuoteModal";
 
 const Home: NextPage = () => {
   const router = useRouter();
 
+  const dispatch = useDispatch();
+
+  const quoteModalStatus = useSelector(changeQuoteModalStatusValue);
+
   const overlayClickHandler = () => {
     if (router.query.id) {
       router.push("/all", undefined, { shallow: true });
+    }
+
+    if (quoteModalStatus.status) {
+      dispatch(changeQuoteModalStatus({ id: null, setState: false }));
     }
   };
 
   return (
     <>
       {router.query.id && <UserModal />}
-      <div className={classes.container} onClick={() => overlayClickHandler()}>
+      {quoteModalStatus.status && <QuoteModal />}
+      <div
+        className={`${classes.container} ${
+          quoteModalStatus.status && classes.overlay
+        }`}
+        onClick={overlayClickHandler}
+      >
         <Head>
           <title>Posterr</title>
         </Head>

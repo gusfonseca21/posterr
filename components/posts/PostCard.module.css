@@ -70,6 +70,7 @@
   align-items: center;
   gap: 1.5rem;
   font-size: 1.3rem;
+  width: 0;
 }
 
 .repost-icon-div,

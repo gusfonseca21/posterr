@@ -21,7 +21,7 @@ const UserModal = () => {
   }
 
   const dispatch = useDispatch();
-  
+
   const users = useSelector(usersValue);
 
   const currentLoggedUser = useSelector(loggedUser);
@@ -121,6 +121,7 @@ const UserModal = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
+                originalPostId={post.originalPostId}
                 key={generateRandomNumber(0, 1000)}
               />
             );

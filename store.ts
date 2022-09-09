@@ -7,6 +7,7 @@ export const store = configureStore({
     users: usersReducer,
     logged: usersReducer,
     postsIn24Hours: usersReducer,
+    changeQuoteModalStatus: usersReducer,
   },
 });
 

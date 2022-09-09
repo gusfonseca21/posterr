@@ -1,8 +1,7 @@
 .modal {
-  position: absolute;
+  position: fixed;
   width: 40rem;
   background-color: black;
-  z-index: 1;
   left: 50%;
   top: 50%;
   padding-top: 3rem;

@@ -8,8 +8,10 @@ import { AiOutlineRetweet } from "react-icons/ai";
 import { MdFormatQuote } from "react-icons/md";
 import { useSelector, useDispatch } from "react-redux";
 import {
+  changeQuoteModalStatus,
+  changeQuoteModalStatusValue,
   loggedUser,
-  numberOfPostsIn24Hours,
+  numberOfPostsIn24HoursValue,
   usersValue,
 } from "../../slices/usersSlice";
 import { useRouter } from "next/router";
@@ -21,11 +23,12 @@ import {
 import { generateRandomNumber } from "../../Helpers";
 
 const PostCard: React.FC<{
-  firstLevelPoster: number;
+  firstLevelPoster: number | null;
   secondLevelPoster: number | null;
   postType: string;
   comment: string | null;
   content: string;
+  originalPostId: number | null;
 }> = (props) => {
   const [repostIconState, setRepostIconState] = useState({
     status: false,
@@ -54,7 +57,9 @@ const PostCard: React.FC<{
 
   const users = useSelector(usersValue);
 
-  const numberOfPostsPerDay = useSelector(numberOfPostsIn24Hours);
+  const changeQuoteModalValue = useSelector(changeQuoteModalStatusValue);
+
+  const numberOfPostsPerDay = useSelector(numberOfPostsIn24HoursValue);
 
   const userLogged = useSelector(loggedUser);
 
@@ -94,6 +99,12 @@ const PostCard: React.FC<{
     } else {
       return;
     }
+  };
+
+  const quoteClickHandler = () => {
+    dispatch(
+      changeQuoteModalStatus({ id: props.originalPostId, setState: true })
+    );
   };
 
   return (
@@ -172,7 +183,8 @@ const PostCard: React.FC<{
           <span className={classes["post-content"]}>
             {props.content}
             {props.postType === "original" &&
-              props.firstLevelPoster !== userLogged && (
+              props.firstLevelPoster !== userLogged &&
+              !changeQuoteModalValue.status && (
                 <div className={classes.icons}>
                   <div
                     className={classes["repost-icon-div"]}
@@ -193,7 +205,10 @@ const PostCard: React.FC<{
                         </div>
                       )}
                   </div>
-                  <div className={classes["quote-icon-div"]}>
+                  <div
+                    className={classes["quote-icon-div"]}
+                    onClick={quoteClickHandler}
+                  >
                     <MdFormatQuote
                       className={classes["quote-icon"]}
                       onMouseEnter={() =>

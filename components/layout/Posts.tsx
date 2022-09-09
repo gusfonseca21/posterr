@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from "react-redux";
-import { numberOfPostsIn24Hours, usersValue } from "../../slices/usersSlice";
+import {
+  numberOfPostsIn24HoursValue,
+  usersValue,
+} from "../../slices/usersSlice";
 import PostCard from "../posts/PostCard";
 
 import { useRouter } from "next/router";
@@ -13,7 +16,7 @@ const Posts = () => {
 
   const dispatch = useDispatch();
 
-  const numberOfPostsPerDay = useSelector(numberOfPostsIn24Hours);
+  const numberOfPostsPerDay = useSelector(numberOfPostsIn24HoursValue);
 
   const router = useRouter();
 
@@ -55,6 +58,7 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
+                originalPostId={post.postId}
                 key={generateRandomNumber(1, 1000)}
               />
             );
@@ -70,6 +74,7 @@ const Posts = () => {
                 postType={post.type}
                 comment={post.comment}
                 content={post.content}
+                originalPostId={post.postId}
                 key={generateRandomNumber(1, 1000)}
               />
             );
