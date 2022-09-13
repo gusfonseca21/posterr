@@ -32,7 +32,7 @@ const initialState: UsersState = {
     {
       id: 8,
       name: "renatabritto",
-      photo: "/../public/images/faces/8.jpg",
+      photo: "/images/faces/8.jpg",
       dateJoined: 1645412400,
       followers: [16, 22, 36, 44, 63],
       following: [16, 22, 44],
@@ -71,7 +71,7 @@ const initialState: UsersState = {
     {
       id: 16,
       name: "TwainMark",
-      photo: "/../public/images/faces/16.jpg",
+      photo: "/images/faces/16.jpg",
       dateJoined: 1642820400,
       followers: [8, 22, 36, 44],
       following: [8, 22, 36, 44, 63],
@@ -91,7 +91,7 @@ const initialState: UsersState = {
     {
       id: 22,
       name: "Lopez",
-      photo: "/../public/images/faces/22.jpg",
+      photo: "/images/faces/22.jpg",
       dateJoined: 1644721200,
       followers: [8, 16, 36],
       following: [8, 16, 36, 44],
@@ -111,7 +111,7 @@ const initialState: UsersState = {
     {
       id: 36,
       name: "Adriano11",
-      photo: "/../public/images/faces/36.jpg",
+      photo: "/images/faces/36.jpg",
       dateJoined: 1643770800,
       followers: [16, 22],
       following: [8, 16, 22],
@@ -131,7 +131,7 @@ const initialState: UsersState = {
     {
       id: 44,
       name: "afabianaMendez",
-      photo: "/../public/images/faces/44.jpg",
+      photo: "/images/faces/44.jpg",
       dateJoined: 1647140400,
       followers: [8, 16, 22],
       following: [8, 16],
@@ -151,7 +151,7 @@ const initialState: UsersState = {
     {
       id: 63,
       name: "00diana",
-      photo: "/../public/images/faces/63.jpg",
+      photo: "/images/faces/63.jpg",
       dateJoined: 1653966000,
       followers: [16, 22],
       following: [8],

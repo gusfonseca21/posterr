@@ -62,6 +62,8 @@ const UserModal = () => {
     profileData.dateJoined * 1000
   );
 
+  console.log(profileData.photo);
+
   return (
     <div className={classes.modal}>
       <Image

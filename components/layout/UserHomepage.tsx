@@ -1,8 +1,5 @@
-import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { useSelector } from "react-redux";
-import { usersValue } from "../../slices/usersSlice";
 import NewPostField from "./NewPostField/NewPostField";
 
 import classes from "./UserHomepage.module.css";
